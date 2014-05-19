@@ -1,5 +1,5 @@
-module.exports = function (tasks, cb) {
-  var results, pending, keys
+module.exports = function (limit, tasks, cb) {
+  var results, pending, keys, next = limit
   if (Array.isArray(tasks)) {
     results = []
     pending = tasks.length
@@ -11,9 +11,17 @@ module.exports = function (tasks, cb) {
 
   function done (i, err, result) {
     results[i] = result
+
     if (--pending === 0 || err) {
       cb && cb(err, results)
       cb = null
+    } else if (!err && next < tasks.length) {
+      next++
+      // object
+      if (keys)
+        tasks[keys[next - 1]](done.bind(undefined, keys[next - 1]))
+      else
+        tasks[next - 1](done.bind(undefined, next - 1))
     }
   }
 
@@ -23,12 +31,12 @@ module.exports = function (tasks, cb) {
     cb = null
   } else if (keys) {
     // object
-    keys.forEach(function (key) {
+    keys.slice(0, limit).forEach(function (key) {
       tasks[key](done.bind(undefined, key))
     })
   } else {
     // array
-    tasks.forEach(function (task, i) {
+    tasks.slice(0, limit).forEach(function (task, i) {
       task(done.bind(undefined, i))
     })
   }

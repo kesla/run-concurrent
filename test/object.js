@@ -1,7 +1,7 @@
-var parallel = require('../')
+var concurrent = require('../')
 var test = require('tape')
 
-test('functions run in parallel', function (t) {
+test('functions run in concurrent', function (t) {
   t.plan(4)
 
   var tasks = {
@@ -19,7 +19,7 @@ test('functions run in parallel', function (t) {
     }
   }
 
-  parallel(tasks, function (err) {
+  concurrent(3, tasks, function (err) {
     t.error(err)
   })
 })
@@ -38,7 +38,7 @@ test('functions that return results', function (t) {
     }
   }
 
-  parallel(tasks, function (err, results) {
+  concurrent(2, tasks, function (err, results) {
     t.error(err)
     t.deepEqual(results, { one: 1, two: 2 })
   })

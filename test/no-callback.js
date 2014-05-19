@@ -1,4 +1,4 @@
-var parallel = require('../')
+var concurrent = require('../')
 var test = require('tape')
 
 test('no callback (array)', function (t) {
@@ -13,7 +13,7 @@ test('no callback (array)', function (t) {
     }
   ]
 
-  parallel(tasks)
+  concurrent(2, tasks)
 })
 
 test('no callback (object)', function (t) {
@@ -28,5 +28,5 @@ test('no callback (object)', function (t) {
     }
   }
 
-  parallel(tasks)
+  concurrent(2, tasks)
 })

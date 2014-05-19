@@ -1,20 +1,24 @@
-# run-parallel [![travis](https://img.shields.io/travis/feross/run-parallel.svg)](https://travis-ci.org/feross/run-parallel) [![npm](https://img.shields.io/npm/v/run-parallel.svg)](https://npmjs.org/package/run-parallel)
+# run-concurrent [![travis](https://img.shields.io/travis/kesla/run-concurrent.svg)](https://travis-ci.org/kesla/run-concurrent) [![npm](https://img.shields.io/npm/v/run-concurrent.svg)](https://npmjs.org/package/run-concurrent)
 
-### Run an array of functions in parallel
+### Run an array of functions concurrently, with a maximum of active tasks
 
-![parallel](https://raw.githubusercontent.com/feross/run-parallel/master/img.png) [![browser support](https://ci.testling.com/feross/run-parallel.png)](https://ci.testling.com/feross/run-parallel)
+![concurrent](https://raw.githubusercontent.com/feross/run-parallel/master/img.png) [![browser support](https://ci.testling.com/kesla/run-concurrent.png)](https://ci.testling.com/kesla/run-concurrent)
 
 ### install
 
 ```
-npm install run-parallel
+npm install run-concurrent
 ```
+
+### Kudos
+
+This is basically a fork of [run-parallel](http://npmjs.org/package/run-parallel) by [feross](http://github.com/feross/) with added limit
 
 ### usage
 
-#### parallel(tasks, [callback])
+#### concurrent(tasks, limit, [callback])
 
-Run the `tasks` array of functions in parallel, without waiting until the previous
+Run the `tasks` array of functions concurrently, without waiting until the previous
 function has completed. If any of the functions pass an error to its callback, the main
 `callback` is immediately called with the value of the error. Once the `tasks` have
 completed, the results are passed to the final `callback` as an array.
@@ -25,6 +29,7 @@ an array. This can be a more readable way of handling the results.
 
 ##### arguments
 
+- `limit` - The maximum number of tasks to run at any time.
 - `tasks` - An array or object containing functions to run. Each function is passed a
 `callback(err, result)` which it must call on completion with an error `err` (which can
 be `null`) and an optional `result` value.
@@ -35,9 +40,10 @@ arguments passed to the task callbacks.
 ##### example
 
 ```js
-var parallel = require('run-parallel')
+var concurrent = require('run-concurrent')
 
-parallel([
+// run at most 2 things simultaneously
+concurrent(2, [
   function (callback) {
     setTimeout(function () {
       callback(null, 'one')
@@ -47,6 +53,11 @@ parallel([
     setTimeout(function () {
       callback(null, 'two')
     }, 100)
+  },
+  function (callback) {
+    setTimeout(function () {
+      callback(null, 'three')
+    }, 300)
   }
 ],
 // optional callback
@@ -57,7 +68,7 @@ function (err, results) {
 ```
 
 This module is basically equavalent to
-[`async.parallel`](https://github.com/caolan/async#paralleltasks-callback), but it's
+[`async.parallelLimit`](https://github.com/caolan/async#parallellimittasks-limit-callback), but it's
 handy to just have the one function you need instead of the kitchen sink. Modularity!
 Especially handy if you're serving to the browser and need to reduce your javascript
 bundle size.
@@ -72,4 +83,4 @@ Works great in the browser with [browserify](http://browserify.org/)!
 
 ### license
 
-MIT. Copyright (c) [Feross Aboukhadijeh](http://feross.org).
+MIT. Copyright (c) [David Björklund](http://github.com/kesla) & [Feross Aboukhadijeh](http://feross.org).

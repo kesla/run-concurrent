@@ -1,20 +1,19 @@
 {
-  "name": "run-parallel",
-  "description": "Run an array of functions in parallel",
+  "name": "run-concurrent",
+  "description": "Run an array of functions concurrently, with a maximum of active tasks",
   "version": "0.3.0",
-  "author": {
-    "name": "Feross Aboukhadijeh",
-    "email": "feross@feross.org",
-    "url": "http://feross.org/"
-  },
+  "contributors": [
+    "David Björklund <david.bjorklund@gmail.com> (https://github.com/kesla)",
+    "Feross Aboukhadijeh <feross@feross.org> (http://feross.org/)"
+  ],
   "bugs": {
-    "url": "https://github.com/feross/run-parallel/issues"
+    "url": "https://github.com/kesla/run-concurrent/issues"
   },
   "dependencies": {},
   "devDependencies": {
     "tape": "^2.12.3"
   },
-  "homepage": "https://github.com/feross/run-parallel",
+  "homepage": "https://github.com/kesla/run-concurrent",
   "keywords": [
     "parallel",
     "async",
@@ -29,7 +28,7 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/feross/run-parallel.git"
+    "url": "git://github.com/kesla/run-concurrent.git"
   },
   "scripts": {
     "test": "tape test/*.js"
