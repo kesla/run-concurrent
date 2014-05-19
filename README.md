@@ -62,7 +62,7 @@ concurrent(2, [
 ],
 // optional callback
 function (err, results) {
-  // the results array will equal ['one','two'] even though
+  // the results array will equal ['one','two','three'] even though
   // the second function had a shorter timeout.
 })
 ```
