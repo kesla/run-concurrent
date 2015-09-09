@@ -1,7 +1,7 @@
 {
   "name": "run-concurrent",
   "description": "Run an array of functions concurrently, with a maximum of active tasks",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "contributors": [
     "David Björklund <david.bjorklund@gmail.com> (https://github.com/kesla)",
     "Feross Aboukhadijeh <feross@feross.org> (http://feross.org/)"
