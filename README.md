@@ -16,7 +16,7 @@ This is basically a fork of [run-parallel](http://npmjs.org/package/run-parallel
 
 ### usage
 
-#### concurrent(tasks, limit, [callback])
+#### concurrent(limit, tasks, [callback])
 
 Run the `tasks` array of functions concurrently, without waiting until the previous
 function has completed. If any of the functions pass an error to its callback, the main
